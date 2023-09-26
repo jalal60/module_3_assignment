@@ -1,8 +1,8 @@
 <?php
 $studentGrades = [
-    "Student_1" => ["Math" => 80, "English" => 70, "Science" => 60],
-    "Student_2" => ["Math" => 70, "English" => 65, "Science" => 90],
-    "Student_3" => ["Math" => 60, "English" => 75, "Science" => 80]
+    "Student_1" => ["Math" => 90, "English" => 80, "Science" => 75],
+    "Student_2" => ["Math" => 60, "English" => 55, "Science" => 70],
+    "Student_3" => ["Math" => 50, "English" => 65, "Science" => 60]
 ];
 
 function avgGrade($studentGrades)
@@ -13,7 +13,18 @@ function avgGrade($studentGrades)
             $avg += $value;
         }
         $result = $avg / 3;
-        echo "$student Average grade=$result\n";
+        if ($result >= 80 && $result <= 100) {
+            $grade = "A+";
+        } else if ($result >= 70 && $result <= 79) {
+            $grade = "A";
+        } else if ($result >= 60 && $result <= 69) {
+            $grade = "A-";
+        } else if ($result >= 50 && $result <= 59) {
+            $grade = "B";
+        } else {
+            $grade = "F";
+        }
+        echo "$student Average grade=$grade\n";
     }
 }
 avgGrade($studentGrades);
