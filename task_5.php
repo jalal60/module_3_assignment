@@ -1,20 +1,28 @@
-<?php 
-function generatePassword($length) {
+<?php
+function generatePassword($length)
+{
+    $sets = array();
+    $sets[] = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    $sets[] = 'abcdefghjkmnpqrstuvwxyz';
+    $sets[] = '1234567890';
+    $sets[]  = '!@#$%^&*()_+';
 
-    $_alphaSmall = 'abcdefghijklmnopqrstuvwxyz';           
-    $_alphaCaps  = strtoupper($_alphaSmall);               
-    $_numerics   = '1234567890';                           
-    $_specialChars = '!@#$%^&*()_+';   
+    $password = '';
+    //append a character from each set.
+    foreach ($sets as $set) {
+        $password .= $set[array_rand(str_split($set))];
+    }
+    //use all characters to fill up to $length
+    while (strlen($password) < $length) {
+        //get a random set
+        $randomSet = $sets[array_rand($sets)];
 
-    $_container = $_alphaSmall.$_alphaCaps.$_numerics.$_specialChars;   
-    $password = '';       
-
-    for($i = 0; $i < $length; $i++) {                                 
-        $_rand = rand(0, strlen($_container) - 1);                
-        $password .= substr($_container, $_rand, 1);               
+        //add a random char from the random set
+        $password .= $randomSet[array_rand(str_split($randomSet))];
     }
 
-    return $password;       // Returns the generated Pass
+    //shuffle the password string before returning!
+    return str_shuffle($password);
 }
 
 echo generatePassword(12);
